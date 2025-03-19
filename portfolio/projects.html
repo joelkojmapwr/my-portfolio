@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekty</title>
+</head>
+<body>
+
+    <nav>
+        <ul id="nav-links" >
+            <li><a href="index.html">Strona Główna</a></li>
+            <li><a href="projects.html">Projekty</a></li>
+            <li><a href="aboutMe.html">O mnie</a></li>
+        </ul>
+        <a href="#" class="logo">Joel Kojma</a>
+    </nav>
+
+    <h2>Moje Projekty</h2>
+    <h3>PWR Racing Team</h3>
+    <figure>
+      <img src="ressources/PWR-Racing-Team.jpg" alt="Bolid formuły student PWR Racing Team">
+      <figcaption>Bolid formuły student PWR Racing Team</figcaption>
+    </figure>
+    <p>
+      Przez pół roku (od listopada 2023 do maja 2024) byłem członkiem zespołu PWR Racing Team, który bierze udział w międzynarodowych zawodach Formuła Student
+      i jest kołem naukowym na Politechnice Wrocławskiej. W zespole zajmowałem się:
+    </p>
+    <ul>
+      <li>Walidacją danych z sensorów - C++ Software Developer</li>
+      <li>Tworzeniem rysunków technicznych poszczególnych komponentów bolidu</li>
+      <li>Kontaktem ze sponsorami</li>
+    </ul>
+    <h3>Zautomatyzowany Śpiewnik Internetowy</h3>
+    <p>Na platformie google drive posiadam folder z piosenkami chrześcijańskimi z tekstem i akordami (gram na gitarze i śpiewam). Gdy zacząłem grać
+        z zespołem pomyślałem, że fajnie byłoby zautomatyzować wiele zadań. Każda piosenka na dysku ma swój folder, w którym jest wersja w domyślnej tonacji, 
+        natomiast skrypt napisany w Google Apps Script tworzy kopie piosenki w innych tonacjach, dokument z czystym tekstem (bez akordów) oraz tworzy dokument
+        gdzie tekst jest przystosowany do wklejenia do programu OpenSong i wyświetlania go na projektorze.
+    </p>
+    <p>Jeśli chcesz możesz sam użyć tego folderu. Jest dostępny <a href="https://drive.google.com/drive/folders/1Np2aU0usMYWXULl3cA6B-W5XpHwkDiT8?usp=sharing">tutaj</a></p>
+
+    <p>
+        Ponadto zaletą platformy Google Apps Script jest to, że można ustawiać automatyczne wyzwalanie skryptu.
+        Więc około godziny 23:00 skrypt sam się odpala i aktualizuje piosenki, które były edytowane tego dnia.
+    </p>
+
+    <pre>
+    <code class="js">
+        function transposition(string, ileRazy) { // to dziala
+            for (let j = 0; j < ileRazy; j++) {
+              var response = "";
+              for (let i = 0; i < string.length; i++) {
+                if (string[i].toUpperCase() == string[i].toLowerCase()) {
+                  response += string[i];
+                }
+                else if (string[i + 1] == "#") {
+                  switch (string[i]) {
+                    case "g": response += "a";
+                      break;
+                    case "G": response += "A";
+                      break;
+                    case "a": response += "h";
+                      break;
+                    case "A": response += "H";
+                      break;
+                    case "C": response += "D";
+                      break;
+                    case "c": response += "d";
+                      break;
+                    case "D": response += "E"; break;
+                    case "d": response += "e"; break;
+                    case "F": response += "G"; break;
+                    case "f": response += "g"; break;
+                    default:
+                      response += string[i];
+                  }
+                  i++;
+                }
+                else {
+                  switch (string[i]) {
+                    case "e": case "E":
+                      response += String.fromCharCode(string[i].charCodeAt(0) + 1);
+                      break;
+                    case "h": case "H":
+                      response += String.fromCharCode(string[i].charCodeAt(0) - 5);
+                      break;
+                    case "c": case "C": case "d": case "D": case "F": case "f": case "g": case "G": case "a": case "A":
+                      response += string[i] + "#";
+                      break;
+                    default:
+                      response += string[i];
+                  }
+                }
+              }
+              string = response;
+            }
+            return string
+          }        
+    </code>
+    </pre>
+    <!--<button onclick="copyCode()">Copy Code</button>
+
+    <textarea id="hidden-textarea" style="position: absolute; left: -9999px;"></textarea>
+
+    <script>
+        document.querySelector('button').addEventListener('click', function() {
+            var code = document.getElementById("code-block").innerText;
+            var textarea = document.getElementById("hidden-textarea");
+            textarea.value = code;
+            textarea.select();
+            document.execCommand("copy");
+            alert("Code copied to clipboard!");
+        });
+    </script>
+-->
+
+    <h3>Elektroniczny system monitorowania pasiek pszczelich</h3>
+    <p>Projekt jest bardzo ambitny, mi się na razie udało zrealizować tylko małą część całego pomysłu.</p>
+    <h4>Opis i cel systemu</h4>
+    <p>System ma na celu monitorowanie warunków panujących w pszczelim ulu (temperatury, wilgotności, wagi ula i częstotliwości dźwięku), celem wykrycia nieprawidłowości i do celów badawczo eksperymentalnych.</p>
+    <h5>System składa się z:</h5>
+    <ul>
+        <li>bazy danych na serwerze</li>
+        <li>API na serwerze które jest pośrednikiem między aplikacją klienta, a bazą danych i płytką ESP32, która przesyła dane przez API do bazy danych</li>
+        <li> Mikrokontrolera ESP32, który zbiera dane i wysyła do API i pobiera rozkazy przesłane przez klienta </li>
+        <li>Aplikacji klienta, w której może analizować dane wysłane z uli, zarządzać swoimi urządzeniami itp. </li>
+    </ul>
+    <h4>Co udało mi się zrobić do tej pory?</h4>
+    <ul>
+        <li>prototypowa baza danych na serwerze</li>
+        <li>API na serwerze, który odbiera dane z ESP32 i zapisuje je w bazie danych</li>
+        <li>prototypowy kod na ESP32, który zbiera dane z czujnika temperatury i wilgotności i wysyła je do API</li>
+    </ul>
+    <figure>
+        <img src="ressources/temp_humidity_hor1.jpg" alt="Mikrokontroler ESP32 z czujnikiem temperatury i wilgotności i kartą SD">
+        <figcaption>Mikrokontroler ESP32 z czujnikiem temperatury i wilgotności i kartą SD zasilany bateriami</figcaption>
+    </figure>
+
+    <p>Dzięki trybowi głębokiego snu mikrokontroler jest bardzo energooszczędny. Wymagamy od niego by kilka razy na dobę się przebudził, odczytał dane z sensorów
+        i wysłał je na serwer. Wtedy znowu zasypia. Dzięki temu baterie mogą wystarczyć nawet na cały rok. Poniższy kod usypia mikrokontroler na określony czas.
+    </p>
+    <pre>
+        <code class="c++">
+            esp_sleep_enable_touchpad_wakeup();
+            esp_sleep_enable_timer_wakeup(secondsToSleep * secondsToMicroSeconds);
+            esp_deep_sleep_start();
+        </code>
+    </pre>
+
+    <h3>Chińskie Warcaby - halma</h3>
+    <figure>
+      <img src="ressources/halma-game.png" alt="Rozgrywka halmy dla 2 graczy">
+      <figcaption>Rozgrywka halmy dla 2 graczy</figcaption>
+    </figure>
+    <p>Projekt zrealizowany w ramach zajęć z technologii programowania na studiach we współpracy z kolegą ze studiów.</p>
+    <p>Użyte przez nas technologie:</p>
+    <ul>
+        <li>Logika gry zaprogramowana w języku Java</li>
+        <li>Interfejs okienkowy w JavaFX</li>
+        <li>Użyliśmy Frameworka Spring do integracji naszej gry z bazą danych</li>
+        <li>Baza danych została napisana w mySQL (MariaDB)</li>
+    </ul>
+    <p>Nasz projekt jest bardzo bogaty funkcjonalnie:</p>
+    <ul>
+        <li>Obsługuje interfejs serwer klient, więc można w nią grać online</li>
+        <li>Projekt implementuje 3 warianty chińskich warcabów (standardowy, "Yin and Yang", "Order Out Of Chaos"). Gdy jeden się znudzi można zagrać w inny</li>
+        <li>Można grać z botami, które są całkiem dobre i wygranie z nimi nie jest całkiem proste.</li>
+        <li>Można grać nawet w 6 użytkowników (lub botów)</li>
+        <li>Można zapisywać stan gry w bazie danych i później go odtworzyć</li>
+    </ul>
+    
+</body>
+</html>
