@@ -14,12 +14,24 @@ p.cytat {
     font-size: 16px;
 }
 
-/* @media screen and (min-width: 768px) {
-    section {
+
+
+@media screen and (min-width: 768px) {
+
+    aside {
         display: flex;
-        justify-content: end;
+        justify-content: center;
+    }
+
+    section {
+        padding-bottom: 2rem;
+    }
+
+    section#Zainteresowania {
+        display: flex;
+        justify-content: center;
         align-items: center;
         flex-direction: row-reverse;
-        /* flex-wrap: nowrap; 
+
     }
-} */
+}
