@@ -1,0 +1,180 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap'); */
+
+:root {
+    --white: #FBF6E9;
+    --light-green: #d2e9b8;
+    --middle-green: #5DB996;
+    --dark-green: #118B50;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 17px;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif; /* Apply Montserrat globally */
+}
+
+a {
+    text-decoration: none;
+    color: var(--dark-green);
+}
+
+p {
+    line-height: 1.6;
+    margin-inline: 1rem;
+    text-indent: 1rem;
+    /* padding-left: 1rem; */
+    padding: 0.2rem;
+    text-align: justify;
+}
+
+ul {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 0.4rem;
+    list-style: none;
+}
+
+li {
+    padding-left: 0.9rem;
+    padding-top: 0.4rem;
+}
+
+h1, h2, h3 {
+    padding: 0.4rem;
+    font-size: larger;
+    font-weight: bold;
+}
+h4, h5 {
+    padding: 0.5rem;
+    font-size: medium;
+    font-weight: bold;
+}
+
+figcaption {
+    font-style: italic;
+    text-align: center;
+    /* padding: 0.5rem; */
+    padding-top: 0.1rem;
+    color: var(--dark-green);
+}
+
+button {
+    background-color: var(--dark-green);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+main {
+    background-color: var(--white);
+    padding: 2rem 0;
+}
+q {
+    font-style: italic;
+}
+
+main li::before {
+    content: "✓";
+    color: var(--dark-green);
+    position: absolute;
+    margin-left: -1.2rem;
+}
+
+nav {
+    background-color: var(--light-green);
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav li {
+    /* display: inline-block; */
+    list-style: none;
+
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.desktop-only {
+    display: none;
+}
+
+nav li a {
+    font-weight: bold;
+    transition: color 0.3s ease;
+    font-size: 1.1rem;
+}
+
+footer {
+    background-color: var(--light-green);
+    color: black;
+    text-align: center;
+    padding: 1rem;
+}
+
+footer p {
+    padding: 0.5rem;
+    text-align: center;
+}
+
+figure {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    width: 100%;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 28px;
+    padding: 0.5rem;
+}
+
+article {
+    padding-bottom: 1rem;
+}
+
+footer span {
+    color: var(--dark-green);
+    font-weight: bold;
+}
+
+@media screen and (min-width: 768px) {
+
+    main {
+        padding-left: calc((100vw - 1000px) / 2);
+        padding-right: calc((100vw - 1000px) / 2);
+    }
+
+
+    #nav-links {
+        margin-top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        width: 100%;
+        gap: 2.5rem;
+    }
+
+
+    ul#nav-links li.desktop-only {
+        display: inline-block;
+        position: absolute;
+        margin-left: 1rem;
+        left: 0;
+    }
+
+}

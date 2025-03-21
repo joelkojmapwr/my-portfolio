@@ -1,0 +1,17 @@
+code {
+    overflow-x: auto;
+    max-width: 100%;
+    white-space: pre;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+pre {
+    background-color: #f4f4f4;
+    margin: 0.7rem !important;
+    padding: 1rem;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    white-space: pre;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    max-width: 100%; /* Ensures it doesn't overflow the container */
+}

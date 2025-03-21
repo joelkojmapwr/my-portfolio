@@ -1,65 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joel Kojma</title>
-    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="styles/global.css">
+    <link rel="stylesheet" type="text/css" href="styles/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <!-- <h1>Joel Kojma</h1> -->
         <nav>
             <ul id="nav-links">
+                <li class="desktop-only"><a href="index.html" class="logo">Joel Kojma</a></li>
                 <li><a href="index.html">Strona Główna</a></li>
                 <li><a href="projects.html">Projekty</a></li>
                 <li><a href="aboutMe.html">O mnie</a></li>
                 <li><a href="#contact">Kontakt</a></li>
-                <li><a href="index.html" class="logo">Joel Kojma</a></li>
             </ul>
-
         </nav>
     </header>
     <main>
-        <section id="Zainteresowania">
-            <img src="ressources/joel_in_jerusalem_trimmed.jpg" id="joel_in_jerusalem" alt="Joel Kojma">
-            <aside>"Najbardziej w życiu cenię ludzi. To oni mi najwięcej dali i to im mogę najwięcej dać" - Joel Kojma
+        <section id="joel-kojma">
+            <figure>
+                <picture id="joel-in-jerusalem">
+                    <source media="(max-width: 768px)" srcset="ressources/joel_in_jerusalem_trimmed_smallest.webp"
+                        type="image/webp">
+                    <source media="(min-width: 769px) and (max-width: 1199px)"
+                        srcset="ressources/joel_in_jerusalem_trimmed_medium.webp" type="image/webp">
+                    <source media="(min-width: 1200px)" srcset="ressources/joel_in_jerusalem.jpg" type="image/webp">
+                    <img src="ressources/joel_in_jerusalem_trimmed.jpg" alt="Joel Kojma">
+                </picture>
+            </figure>
+
+            <h1>Joel Kojma</h1>
+            <aside>
+                <p class="cytat">"Najbardziej w życiu cenię ludzi. To oni mi najwięcej dali i to im mogę najwięcej dać"
+                </p>
             </aside>
-            <button onclick="location.href='aboutMe.html'">Więcej o mnie</button>
+            <div class="button-container">
+                <button onclick="location.href='aboutMe.html'">Więcej o mnie</button>
+            </div>
+        </section>
+        <section id="Zainteresowania">
+
+            <figure>
+                <img src="ressources/temp_humidity_vert1.jpg"
+                    alt="Mikrokontroler ESP32 z czujnikiem temperatury i wilgotności i kartą SD">
+            </figure>
+            <div class="description">
+                <h2>Zainteresowania</h2>
+                <ul>
+                    <li>Elektronika</li>
+                    <li>Aplikacje mobilne</li>
+                    <li>Przywództwo</li>
+                    <li>Muzyka</li>
+                </ul>
+                <div class="button-container">
+                    <button onclick="location.href='aboutMe.html#zainteresowania'">Czytaj więcej</button>
+                </div>
+            </div>
 
         </section>
-        <h2>Zainteresowania</h2>
-        <figure>
-            <img src="ressources/temp_humidity_vert1.jpg"
-                alt="Mikrokontroler ESP32 z czujnikiem temperatury i wilgotności i kartą SD">
-        </figure>
-        <ul>
-            <li>Elektronika</li>
-            <li>Aplikacje mobilne</li>
-            <li>Przywództwo</li>
-            <li>Muzyka</li>
-        </ul>
-        <button onclick="location.href='aboutMe.html#zainteresowania'">Czytaj więcej</button>
+        <section id="Projekty">
 
-        <h2>Moje Projekty</h2>
-        <figure>
-            <img src="ressources/PWR-Racing-Team.jpg" alt="Bolid formuły student PWR Racing Team">
-        </figure>
-        <ul>
-            <li>PWR Racing Team</li>
-            <li>Elektroniczny system monitorowania pasiek pszczelich</li>
-            <li>Zautomatyzowany Śpiewnik Internetowy</li>
-            <li>Chińskie Warcaby - halma</li>
-        </ul>
-        <button onclick="location.href='projects.html'">Czytaj więcej</button>
+            <figure>
+                <img src="ressources/PWR-Racing-Team.jpg" alt="Bolid formuły student PWR Racing Team">
+            </figure>
+            <h2>Moje Projekty</h2>
+            <ul>
+                <li>PWR Racing Team</li>
+                <li>Elektroniczny system monitorowania pasiek pszczelich</li>
+                <li>Zautomatyzowany Śpiewnik Internetowy</li>
+                <li>Chińskie Warcaby - halma</li>
+            </ul>
+            <div class="button-container">
+                <button onclick="location.href='projects.html'">Czytaj więcej</button>
+            </div>
+        </section>
     </main>
-    <h3>Rozwój motywowany miłością</h3>
+    <!-- <h3>Rozwój motywowany miłością</h3> -->
     <footer id="contact">
-        <p> Kontakt email: joelkojma@gmail.com </p>
-        <p> Link do mojego <a href="https://github.com/joelkojmapwr">GitHub</a></p>
-        <p>© 2025 Joel Kojma.</p>
+        <p> email: <span id="mail"> joelkojma@gmail.com </span> </p>
+        <p> Link do mojego <a href="https://github.com/joelkojmapwr"> <span id="github">GitHub</span></a></p>
+        <p>© 2025 <span id="name">Joel Kojma</span></p>
     </footer>
 </body>
 
