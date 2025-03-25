@@ -1,0 +1,9 @@
+@use '../abstracts/variables' as *;
+
+@mixin mq($canvas) {
+    @if map-has-key($breakpoints, $canvas) {
+        @media only screen and (min-width: map-get($breakpoints, $canvas)) {
+            @content;
+        }
+    }
+}

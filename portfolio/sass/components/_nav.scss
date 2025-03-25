@@ -1,0 +1,41 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+nav {
+    background-color: $nav-background;
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    li {
+        padding: 0.5rem;
+        text-align: center;
+
+        a {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+    }
+
+    @include mq(medium) {
+        #nav-links {
+            margin-top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            gap: 1.5rem;
+        }
+
+        li.desktop-only {
+            display: inline-block;
+            position: absolute;
+            margin-left: 1rem;
+            left: 0;
+        }
+    }
+}
+

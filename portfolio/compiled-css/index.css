@@ -1,0 +1,159 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 17px;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif; /* Apply Montserrat globally */
+}
+
+a {
+  text-decoration: none;
+  color: #118B50;
+}
+a:hover {
+  color: #096137;
+}
+
+h1, h2, h3 {
+  padding: 0.4rem;
+  font-size: larger;
+  font-weight: bold;
+}
+
+h4, h5 {
+  padding: 0.5rem;
+  font-size: medium;
+  font-weight: bold;
+}
+
+button {
+  background-color: #118B50;
+  color: #d2e9b8;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+button:hover {
+  background-color: #096137;
+}
+
+ul {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 0.4rem;
+  list-style: none;
+}
+
+li {
+  padding-left: 0.9rem;
+  padding-top: 0.4rem;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 28px;
+  padding: 0.5rem;
+}
+
+main {
+  background-color: var(--white);
+  padding: 2rem 0;
+}
+
+q {
+  font-style: italic;
+}
+
+article {
+  padding-bottom: 1rem;
+}
+
+:hover {
+  transition: 0.5s;
+}
+
+.desktop-only {
+  display: none;
+}
+
+@media only screen and (min-width: 850px) {
+  main {
+    padding-left: calc((100vw - 850px - 150px) / 2);
+    padding-right: calc((100vw - 850px - 150px) / 2);
+  }
+}
+nav {
+  background-color: #d2e9b8;
+  padding: 0;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+nav li {
+  padding: 0.5rem;
+  text-align: center;
+}
+nav li a {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+@media only screen and (min-width: 850px) {
+  nav #nav-links {
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    gap: 1.5rem;
+  }
+  nav li.desktop-only {
+    display: inline-block;
+    position: absolute;
+    margin-left: 1rem;
+    left: 0;
+  }
+}
+
+footer {
+  background-color: #d2e9b8;
+  color: black;
+  text-align: center;
+  align-items: center;
+  padding: 1rem;
+}
+footer p {
+  padding: 0.5rem;
+  text-align: center;
+}
+footer span {
+  color: #118B50;
+  font-weight: bold;
+}
+footer .social-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+footer .social-links img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0px;
+  padding: 0.5rem;
+}
+footer .social-links #fb:hover {
+  filter: invert(29%) sepia(76%) saturate(749%) hue-rotate(190deg) brightness(95%) contrast(92%);
+}
+footer .social-links #insta:hover {
+  filter: invert(39%) sepia(58%) saturate(500%) hue-rotate(320deg) brightness(90%) contrast(85%);
+}
+footer .social-links #github:hover {
+  filter: invert(100%);
+}
+
+/*# sourceMappingURL=index.css.map */

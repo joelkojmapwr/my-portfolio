@@ -1,0 +1,91 @@
+@use 'abstracts/variables' as *;
+@use 'abstracts/mixins' as *;
+
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 17px;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif; /* Apply Montserrat globally */
+}
+
+a {
+    text-decoration: none;
+    color: $main-accent-color;
+    &:hover {
+        color: $super-accent-color;
+    }
+}
+
+h1, h2, h3 {
+    padding: 0.4rem;
+    font-size: larger;
+    font-weight: bold;
+}
+h4, h5 {
+    padding: 0.5rem;
+    font-size: medium;
+    font-weight: bold;
+}
+
+button {
+    background-color: $main-accent-color;
+    color: $main-background;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color $transition-time ease;
+
+    &:hover {
+        background-color: $super-accent-color;
+    }
+}
+
+ul {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 0.4rem;
+    list-style: none;
+}
+
+li {
+    padding-left: 0.9rem;
+    padding-top: 0.4rem;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 28px;
+    padding: 0.5rem;
+}
+
+main {
+    background-color: var(--white);
+    padding: 2rem 0;
+}
+
+q {
+    font-style: italic;
+}
+
+article {
+    padding-bottom: 1rem;
+}
+
+:hover {
+    transition: $transition-time;
+}
+
+.desktop-only {
+    display: none;
+}
+
+@include mq(medium) {
+    main {
+        padding-left: calc((100vw - #{map-get($breakpoints, medium)} - 150px) / 2);
+        padding-right: calc((100vw - #{map-get($breakpoints, medium)} - 150px) / 2);
+    }
+}

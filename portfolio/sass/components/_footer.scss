@@ -1,0 +1,44 @@
+@use '../abstracts/variables' as *;
+
+footer {
+    background-color: $nav-background;
+    color: black;
+    text-align: center;
+    align-items: center;
+    padding: 1rem;
+
+    p {
+        padding: 0.5rem;
+        text-align: center;
+    }
+
+    span {
+        color: $main-accent-color;
+        font-weight: bold;
+    }
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        img {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0px;
+            padding: 0.5rem;
+        }
+
+        #fb:hover {
+            filter: invert(29%) sepia(76%) saturate(749%) hue-rotate(190deg) brightness(95%) contrast(92%);
+        }
+        
+        #insta:hover {
+            filter: invert(39%) sepia(58%) saturate(500%) hue-rotate(320deg) brightness(90%) contrast(85%);
+        }
+        
+        #github:hover {
+            filter: invert(100%);
+        }
+    }
+    
+}
