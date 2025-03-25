@@ -1,10 +1,9 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap'); */
-
 :root {
     --white: #FBF6E9;
     --light-green: #d2e9b8;
     --middle-green: #5DB996;
     --dark-green: #118B50;
+    --super-dark-green: #096137;
 }
 
 
@@ -18,8 +17,33 @@
 
 a {
     text-decoration: none;
-    color: var(--dark-green);
+    color: var(--super-dark-green);
 }
+
+:hover {
+    transition: 0.5s;
+}
+
+a:hover {
+    color: black;
+}
+button:hover {
+    background-color: var(--super-dark-green);
+}
+
+#fb:hover {
+    filter: invert(29%) sepia(76%) saturate(749%) hue-rotate(190deg) brightness(95%) contrast(92%);
+}
+
+#insta:hover {
+    filter: invert(39%) sepia(58%) saturate(500%) hue-rotate(320deg) brightness(90%) contrast(85%);
+}
+
+#github:hover {
+    filter: invert(100%);
+}
+
+
 
 p {
     line-height: 1.6;
@@ -117,7 +141,20 @@ footer {
     background-color: var(--light-green);
     color: black;
     text-align: center;
+    align-items: center;
     padding: 1rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-links img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0px;
 }
 
 footer p {
