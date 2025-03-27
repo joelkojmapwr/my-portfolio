@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "sass --watch sass/index.scss:compiled-css/index.css"
+    "sass": "sass --watch sass/index.scss:compiled-css/index.css sass/projects.scss:compiled-css/projects.css sass/aboutme.scss:compiled-css/aboutme.css",
+    "sass-compressed": "sass --watch --style compressed sass/index.scss:compressed-css/index.css sass/projects.scss:compressed-css/projects.css sass/aboutme.scss:compressed-css/aboutme.css"
   },
   "keywords": [],
   "author": "",

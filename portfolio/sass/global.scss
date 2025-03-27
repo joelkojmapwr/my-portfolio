@@ -1,31 +1,53 @@
 @use 'abstracts/variables' as *;
 @use 'abstracts/mixins' as *;
+@use 'abstracts/functions' as *;
 
 * {
     margin: 0;
     padding: 0;
     font-size: 17px;
     box-sizing: border-box;
-    font-family: "Montserrat", sans-serif; /* Apply Montserrat globally */
+    font-family: "Montserrat", sans-serif;
+    /* Apply Montserrat globally */
 }
 
 a {
     text-decoration: none;
     color: $main-accent-color;
+
     &:hover {
         color: $super-accent-color;
     }
 }
 
-h1, h2, h3 {
-    padding: 0.4rem;
-    font-size: larger;
-    font-weight: bold;
+p {
+    line-height: 1.6;
+    margin-inline: 1rem;
+    text-indent: 1rem;
+    padding: 0.2rem;
+    text-align: justify;
 }
-h4, h5 {
+
+%header-base {
+    margin: 0;
+    line-height: 1.2;
+}
+
+@for $i from 1 through 6 {
+    h#{$i} {
+        @extend %header-base;
+        @each $key, $value in heading-format($i) {
+            #{$key}: $value; // Dynamically sets padding and font-size
+        }
+    }
+}
+
+
+figcaption {
+    font-style: italic;
+    text-align: center;
     padding: 0.5rem;
-    font-size: medium;
-    font-weight: bold;
+    color: $main-accent-color;
 }
 
 button {
@@ -54,6 +76,15 @@ li {
     padding-top: 0.4rem;
 }
 
+figure {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    width: 100%;
+}
+
 img {
     display: block;
     max-width: 100%;
@@ -63,8 +94,15 @@ img {
 }
 
 main {
-    background-color: var(--white);
+    background-color: $main-background;
     padding: 2rem 0;
+
+    li::before {
+        content: "✓";
+        color: $main-accent-color;
+        position: absolute;
+        margin-left: -1.2rem;
+    }
 }
 
 q {

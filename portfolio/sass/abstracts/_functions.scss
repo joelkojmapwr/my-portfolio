@@ -1,0 +1,23 @@
+
+
+@function heading-format($level) {
+
+    @if $level < 1 or $level >6 {
+        @warn "Header level must be between 1 and 6. Received: #{$level}";
+        @return (padding: 0, size: 16px); // Fallback
+    }
+
+    // Calculate font size: larger for lower levels (h1), smaller for higher (h6)
+    $base-size: 1.5rem; // Starting size for h1
+    $size-decrement: 0.2rem; // Decrease per level
+    $font-size: $base-size - (($level - 1) * $size-decrement);
+
+    // Calculate padding: more for lower levels, less for higher
+    $base-padding: 1rem; // Starting padding for h1
+    $padding-decrement: 0.1rem; // Decrease per level
+    $padding: $base-padding - (($level - 1) * $padding-decrement);
+
+    // Return a map with both values
+    @return (padding: $padding,
+        font-size: $font-size );
+}

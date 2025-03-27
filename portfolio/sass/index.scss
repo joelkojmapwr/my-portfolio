@@ -1,4 +1,40 @@
 @use 'global';
 @use 'components/nav';
 @use 'components/footer';
+@use 'abstracts/mixins' as *;
 
+h1 {
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1rem;
+}
+
+p.cytat {
+    text-indent: 0;
+    font-size: 16px;
+}
+
+
+@include mq(medium) {
+    aside {
+        display: flex;
+        justify-content: center;
+    }
+
+    section {
+        padding-bottom: 2rem;
+    }
+
+    section#Zainteresowania {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row-reverse;
+
+    }
+}

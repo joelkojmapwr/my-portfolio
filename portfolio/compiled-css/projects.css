@@ -211,36 +211,22 @@ footer .social-links #github:hover {
   filter: invert(100%);
 }
 
-h1 {
-  text-align: center;
+code {
+  overflow-x: auto;
+  max-width: 100%;
+  white-space: pre;
+  font-family: "Courier New", Courier, monospace;
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 1rem;
+pre {
+  background-color: #f4f4f4;
+  margin: 0.7rem !important;
+  padding: 1rem;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  white-space: pre;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  max-width: 100%; /* Ensures it doesn't overflow the container */
 }
 
-p.cytat {
-  text-indent: 0;
-  font-size: 16px;
-}
-
-@media only screen and (min-width: 850px) {
-  aside {
-    display: flex;
-    justify-content: center;
-  }
-  section {
-    padding-bottom: 2rem;
-  }
-  section#Zainteresowania {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row-reverse;
-  }
-}
-
-/*# sourceMappingURL=index.css.map */
+/*# sourceMappingURL=projects.css.map */
