@@ -34,6 +34,7 @@ function initHamburger() {
     hamburger.style.fontSize = "2rem";
     hamburger.style.zIndex = "101"; // Ensure hamburger is above the navbar
     document.body.appendChild(hamburger);
+    hamburger.style.display = "none"; // Initially hide the hamburger icon  
     hamburger.addEventListener("click", toggleMenu);
 }
 
@@ -53,9 +54,32 @@ function loadHamburger() {
 
 }
 
+function responsiveNavbar() {
+    const navbar = document.querySelector("nav");
+    // const navItems = navbar.querySelectorAll("li");
+    const oldNavbarBackground = window.getComputedStyle(navbar).backgroundColor;
+    navbar.addEventListener("mouseenter", () => {
+        navbar.style.backgroundColor = "linear-gradient(to right, blue, transparent)";
+        console.log(oldNavbarBackground)
+        const handleMouseMove = (event) => {
+            const rect = navbar.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            navbar.style.background = `radial-gradient(circle at ${x}px ${y}px, rgb(187, 255, 0), ${oldNavbarBackground}, ${oldNavbarBackground}, ${oldNavbarBackground})`;
+        };
+        navbar.addEventListener("mousemove", handleMouseMove);
+
+        navbar.addEventListener("mouseleave", () => {
+            navbar.style.background = oldNavbarBackground;
+            navbar.removeEventListener("mousemove", handleMouseMove);
+        }, { once: true });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initHamburger();
     loadHamburger();
+    responsiveNavbar();
     window.addEventListener("resize", () => {
         const navbar = document.querySelector("nav");
         if (window.innerWidth >= 768) {
