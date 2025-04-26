@@ -1,5 +1,5 @@
-import {Field, Board } from "./Field.js";
-// import Field from './Field.js';
+import { Board } from "./Board.js";
+
 
 // 0, 0 is in the top left corner of the game
 // indexes are from 0 and last number is empty
@@ -36,4 +36,5 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     board.addHoverListener();
+    board.addClickListener();
 });
