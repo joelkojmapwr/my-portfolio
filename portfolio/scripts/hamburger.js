@@ -1,30 +1,28 @@
+/*global console, document, window */
+
+const hamburger = document.createElement("div");
+
 function toggleMenu() {
     const navbar = document.querySelector("nav");
-    const hamburger = document.getElementById("hamburger-menu");
     if (navbar.style.display === "none" || navbar.style.display === "") {
         navbar.style.display = "block";
 
-        // navbar.style.display = "block";
-
         hamburger.innerHTML = `&#10005;`; // Change to close icon
-        setTimeout(() => {
+        setTimeout(function() {
             navbar.style.opacity = "1";
-
-        }, 0); // Trigger the transition
+        }, 0);
 
     } else {
         navbar.style.opacity = "0";
-        setTimeout(() => {
+        setTimeout(function() {
             navbar.style.display = "none";
-        }, 300); // Match the transition duration
+        }, 0);
         hamburger.innerHTML = `&#9776;`; // Change to hamburger icon
     }
 }
 
-var hamburger = document.createElement("div");
 
 function initHamburger() {
-    
     hamburger.classList.add("hamburger");
     hamburger.id = "hamburger-menu";
     hamburger.innerHTML = `&#9776;`;
@@ -34,7 +32,7 @@ function initHamburger() {
     hamburger.style.fontSize = "2rem";
     hamburger.style.zIndex = "101"; // Ensure hamburger is above the navbar
     document.body.appendChild(hamburger);
-    hamburger.style.display = "none"; // Initially hide the hamburger icon  
+    hamburger.style.display = "none"; // Initially hide the hamburger icon
     hamburger.addEventListener("click", toggleMenu);
 }
 
@@ -55,13 +53,10 @@ function loadHamburger() {
 }
 
 function responsiveGradient(navbar) {
-    
-    // const navItems = navbar.querySelectorAll("li");
     const oldNavbarBackground = window.getComputedStyle(navbar).backgroundColor;
-    navbar.addEventListener("mouseenter", () => {
-        navbar.style.backgroundColor = "linear-gradient(to right, blue, transparent)";
-        console.log(oldNavbarBackground)
-        const handleMouseMove = (event) => {
+    navbar.addEventListener("mouseenter", function() {
+        console.log(oldNavbarBackground);
+        const handleMouseMove = function(event) {
             const rect = navbar.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
@@ -69,21 +64,21 @@ function responsiveGradient(navbar) {
         };
         navbar.addEventListener("mousemove", handleMouseMove);
 
-        navbar.addEventListener("mouseleave", () => {
+        navbar.addEventListener("mouseleave", function() {
             navbar.style.background = oldNavbarBackground;
             navbar.removeEventListener("mousemove", handleMouseMove);
         }, { once: true });
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", function() {
     const navbar = document.querySelector("nav");
     const footer = document.querySelector("footer");
     initHamburger();
     loadHamburger();
     responsiveGradient(navbar);
     responsiveGradient(footer);
-    window.addEventListener("resize", () => {
+    window.addEventListener("resize", function() {
         if (window.innerWidth >= 768) {
             navbar.style.display = "block";
             navbar.style.opacity = "1";
