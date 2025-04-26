@@ -1,1 +1,4 @@
 node_modules/
+*.jpg
+compiled-css/
+compressed-css/

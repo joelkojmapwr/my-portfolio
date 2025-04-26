@@ -9,12 +9,17 @@ main ul li::before {
 
 .video-container {
     position: relative;
-    
-    width: 100%; /* Full width */
-    max-width: 800px; /* Limit max width for large screens */
-    margin: auto; /* Center align */
+
+    width: 100%;
+    /* Full width */
+    max-width: 800px;
+    /* Limit max width for large screens */
+    margin: auto;
+    /* Center align */
     overflow: hidden;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio (Height = 9 / Width = 16) */
+    padding-top: 56.25%;
+
+    /* 16:9 Aspect Ratio (Height = 9 / Width = 16) */
     iframe {
         padding: 1rem;
         border-radius: 30px;
@@ -29,4 +34,16 @@ main ul li::before {
 
 main h2 {
     text-transform: uppercase;
+}
+
+#Gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#Gallery img {
+    width: auto;
+    height: 200px;
+    border-radius: 8px;
 }

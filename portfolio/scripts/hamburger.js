@@ -54,8 +54,8 @@ function loadHamburger() {
 
 }
 
-function responsiveNavbar() {
-    const navbar = document.querySelector("nav");
+function responsiveGradient(navbar) {
+    
     // const navItems = navbar.querySelectorAll("li");
     const oldNavbarBackground = window.getComputedStyle(navbar).backgroundColor;
     navbar.addEventListener("mouseenter", () => {
@@ -77,11 +77,13 @@ function responsiveNavbar() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    const navbar = document.querySelector("nav");
+    const footer = document.querySelector("footer");
     initHamburger();
     loadHamburger();
-    responsiveNavbar();
+    responsiveGradient(navbar);
+    responsiveGradient(footer);
     window.addEventListener("resize", () => {
-        const navbar = document.querySelector("nav");
         if (window.innerWidth >= 768) {
             navbar.style.display = "block";
             navbar.style.opacity = "1";
