@@ -34,4 +34,6 @@ document.addEventListener("DOMContentLoaded", function() {
     gameImg.then((img) => board.initFields(img)).then(() => board.drawBoard()).catch((err) => {
         console.error("Error loading image: ", err);
     });
+
+    board.addHoverListener();
 });
