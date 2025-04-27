@@ -57,7 +57,7 @@ class Board {
     }
 
     drawBoard() {
-        this.canvas.style.backgroundColor = "lightgray";
+        this.canvas.style.backgroundColor = "blue";
         const ctx = this.canvas.getContext('2d');
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         const pieceWidth = this.canvas.width / this.width;
@@ -79,6 +79,27 @@ class Board {
                 // console.log(piece.x, piece.y);
             }
         }
+    }
+
+    isWon() {
+        console.log("Checking if won")
+        const flatFields = [];
+        for (let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+            flatFields.push(this.fields[x][y]);
+            }
+        }
+        if (flatFields[0] != null) {
+            console.log("Null on bad position")
+            return false;
+        }
+        for (let i = 1; i < flatFields.length; i++){
+            if (flatFields[i].id != i){
+                console.log("field " + flatFields[i].id + " is on position " + i)
+                return false;
+            }
+        }
+        return true;
     }
 
     highlightField(x, y) {
@@ -143,7 +164,10 @@ class Board {
                 this.emptyIndex = [oldX, oldY];
                 
                 this.fields[oldX][oldY] = null;
-
+                if (this.isWon()){
+                    // print message you won
+                    alert("Congratulations!, you won")
+                }
             }
         };
 
@@ -186,7 +210,8 @@ class Board {
             return inversions % 2 === 0;
             } else {
             // Even width: solvable if inversions + row index of empty space is odd
-            const emptyRow = Math.floor(permutation.indexOf(null) / this.width);
+            const emptyRow = this.height -1 - Math.floor(permutation.indexOf(null) / this.width);
+            console.log("empty row: " + emptyRow)
             return (inversions + emptyRow) % 2 === 1;
             }
         };

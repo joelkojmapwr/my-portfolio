@@ -6,8 +6,8 @@ import { generateSolvablePermutation } from "./utils.js";
 // indexes are from 0 and last number is empty
 
 
-var boardWidth = 3
-var boardHeight = 3
+var boardWidth = 2
+var boardHeight = 2
 const defaultImgUrl = "ressources/city.jpg";
 var customImg = "";
 var canvas;
@@ -27,18 +27,19 @@ function loadImage(fileName) {
 }
 
 function addUploadButton() {
-    var uploadButton = document.createElement("input");
+    var uploadButton = document.getElementById("fileInput");
+    var uploadButtonLabel = document.getElementById("fileLabel");
     uploadButton.type = "file";
     uploadButton.accept = "image/*";
     uploadButton.addEventListener("change", function (event) {
         const file = event.target.files[0];
+        uploadButtonLabel.textContent = file.name;
         if (file) {
             const reader = new FileReader();
             reader.onload = function (e) {
                 const img = new Image();
                 img.src = e.target.result;
                 customImg = img;
-                document.body.appendChild(img);
             };
             reader.readAsDataURL(file);
         }
@@ -48,6 +49,7 @@ function addUploadButton() {
 
 function startGame(img, boardWidth, boardHeight) {
     board = new Board(boardWidth, boardHeight, canvas);
+    console.log("Starting game with img sizes: " + img.width + " " + img.height)
     var initCompleted = board.initFields(img).then(() => board.drawBoard()).catch((err) => {
         console.error("Error loading image: ", err);
     });
@@ -61,12 +63,15 @@ function startGame(img, boardWidth, boardHeight) {
 }
 
 function rescaleImage(img, width, height) {
+    console.log("width: " + width + "height" + height)
     const canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
     const ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0, width, height);
-    return canvas.toDataURL();
+    const scaledImg = new Image();
+    scaledImg.src = canvas.toDataURL();
+    return scaledImg;
 }
 
 async function prepareImg() {
@@ -79,10 +84,13 @@ async function prepareImg() {
     }
     let width = img.width;
     let height = img.height;
-    if (width / height != baseWidth / baseHeight){
-        let newHeight = baseWidth* height / width
+    let newHeight = width * boardHeight / boardWidth;
+    if (width / height != boardWidth / boardHeight){
+        console.log("rescaling img")
         img = rescaleImage(img, width, newHeight)
     }
+    canvas.width = width;
+    canvas.height = newHeight
     return img;
 }
 
@@ -101,9 +109,9 @@ function clearBoardIfNeeded() {
     canvas = newCanvas;
 }
 
-function addRestartButton() {
+function addStartButton() {
     var restartButton = document.createElement("button");
-    restartButton.textContent = "Restart";
+    restartButton.textContent = "Start";
     restartButton.addEventListener("click", function () {
         clearBoardIfNeeded();
         let imgPromise = prepareImg()
@@ -113,17 +121,6 @@ function addRestartButton() {
     document.body.appendChild(restartButton);
 }
 
-function addStartButton() {
-    var startButton = document.createElement("button");
-    startButton.textContent = "Start";
-    startButton.addEventListener("click", function () {
-        let imgPromise = prepareImg()
-        imgPromise.then((img) => startGame(img, boardWidth, boardHeight));
-        
-    });
-    document.body.appendChild(startButton);
-}
-
 
 document.addEventListener("DOMContentLoaded", function () {
     canvas = document.getElementById("puzzleCanvas");
@@ -131,7 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     addUploadButton();
-    addRestartButton();
     addStartButton();
     // startGame(customImgUrl, boardWidth, boardHeight);
     

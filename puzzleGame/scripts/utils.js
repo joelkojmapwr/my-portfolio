@@ -14,4 +14,5 @@ function generateSolvablePermutation (n) {
     return permutation;
 };
 
+
 export { generateSolvablePermutation };
