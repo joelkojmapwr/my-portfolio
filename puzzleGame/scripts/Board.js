@@ -1,5 +1,5 @@
 import { Field } from './Field.js';
-
+import { generateSolvablePermutation } from "./utils.js";
 
 class Board {
     constructor(width, height, canvas) {
@@ -59,6 +59,7 @@ class Board {
     drawBoard() {
         this.canvas.style.backgroundColor = "lightgray";
         const ctx = this.canvas.getContext('2d');
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         const pieceWidth = this.canvas.width / this.width;
         const pieceHeight = this.canvas.height / this.height;
 
@@ -99,7 +100,7 @@ class Board {
 
     moveField(oldX, oldY, duration = 300) {
         console.log("move field", oldX, oldY);
-        console.log(this.fields[oldX][oldY]);
+        // console.log(this.fields[oldX][oldY]);
         if (typeof oldX !== 'number' || typeof oldY !== 'number') {
             throw new TypeError("newX and newY must be numbers");
         }
@@ -149,6 +150,88 @@ class Board {
         requestAnimationFrame(animate);
     }
 
+    shuffleTwoRandomIndices(permutation) {
+        if (!Array.isArray(permutation)) {
+            throw new TypeError("Permutation must be an array");
+        }
+
+        const nonNullIndices = permutation
+            .map((value, index) => (value !== null ? index : null))
+            .filter(index => index !== null);
+
+        if (nonNullIndices.length < 2) {
+            throw new Error("Not enough elements to shuffle");
+        }
+
+        const [index1, index2] = nonNullIndices
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 2);
+
+        [permutation[index1], permutation[index2]] = [permutation[index2], permutation[index1]];
+    }
+
+    randomizeBoard() {
+        const isSolvable = (permutation) => {
+            let inversions = 0;
+            for (let i = 1; i < permutation.length; i++) {
+            for (let j = i + 1; j < permutation.length; j++) {
+                if (permutation[i] !== null && permutation[j] !== null && permutation[i] > permutation[j]) {
+                inversions++;
+                }
+            }
+            }
+            console.log("Inversions: ", inversions);
+            if (this.width % 2 === 1) {
+            // Odd width: solvable if inversions are even
+            return inversions % 2 === 0;
+            } else {
+            // Even width: solvable if inversions + row index of empty space is odd
+            const emptyRow = Math.floor(permutation.indexOf(null) / this.width);
+            return (inversions + emptyRow) % 2 === 1;
+            }
+        };
+
+        let permutation = generateSolvablePermutation(this.width * this.height);
+        while (!isSolvable(permutation)) {
+            permutation = generateSolvablePermutation(this.width * this.height);
+        }
+        console.log("Generated solvable permutation: ", permutation);
+
+        const flatFields = [];
+        for (let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+            flatFields.push(this.fields[x][y]);
+            }
+        }
+
+        let index = 1;
+        for (let i = 0; i < this.height; i++) {
+            for (let j = 0; j < this.width; j++) {
+                // console.log(index, j, i)
+            if (i === 0 && j === 0) {
+                this.fields[j][i] = null;
+            } else {
+                this.fields[j][i] = flatFields[permutation[index]];
+                this.fields[j][i].x = j;
+                this.fields[j][i].y = i;
+                this.fields[j][i].id = permutation[index];
+                console.log(permutation[index])
+                index++;
+            }
+            }
+        }
+        this.emptyIndex = [0, 0];
+    }
+
+    logPermutation() {
+        const permutation = [];
+        for (let i = 0; i < this.height; i++) {
+            for (let j = 0; j < this.width; j++) {
+            permutation.push(this.fields[j][i] ? this.fields[j][i].id : null);
+            }
+        }
+        console.log("Permutation: ", permutation);
+    }
 
     addHoverListener() {
         // console.log("add hover listener");

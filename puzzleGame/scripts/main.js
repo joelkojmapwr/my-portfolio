@@ -1,4 +1,5 @@
 import { Board } from "./Board.js";
+import { generateSolvablePermutation } from "./utils.js";
 
 
 // 0, 0 is in the top left corner of the game
@@ -8,9 +9,13 @@ import { Board } from "./Board.js";
 var boardWidth = 3
 var boardHeight = 3
 const defaultImgUrl = "ressources/city.jpg";
+var customImg = "";
 var canvas;
+var baseWidth = 700;
+var baseHeight = 700;
 var canvasWidth = 700;
 var canvasHeight = 700;
+var board = null;
 
 function loadImage(fileName) {
     return new Promise((resolve, reject) => {
@@ -21,20 +26,123 @@ function loadImage(fileName) {
     });
 }
 
+function addUploadButton() {
+    var uploadButton = document.createElement("input");
+    uploadButton.type = "file";
+    uploadButton.accept = "image/*";
+    uploadButton.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = new Image();
+                img.src = e.target.result;
+                customImg = img;
+                document.body.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    document.body.appendChild(uploadButton);
+}
 
-document.addEventListener("DOMContentLoaded", function() {
+function startGame(img, boardWidth, boardHeight) {
+    board = new Board(boardWidth, boardHeight, canvas);
+    var initCompleted = board.initFields(img).then(() => board.drawBoard()).catch((err) => {
+        console.error("Error loading image: ", err);
+    });
+
+    initCompleted.then(function () {
+        board.addHoverListener();
+        board.addClickListener();
+        board.randomizeBoard();
+        board.drawBoard();
+    })
+}
+
+function rescaleImage(img, width, height) {
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, width, height);
+    return canvas.toDataURL();
+}
+
+async function prepareImg() {
+    let img = new Image();
+    if (customImg === "") {
+        img = await loadImage(defaultImgUrl);
+    }
+    else {
+        img = customImg;
+    }
+    let width = img.width;
+    let height = img.height;
+    if (width / height != baseWidth / baseHeight){
+        let newHeight = baseWidth* height / width
+        img = rescaleImage(img, width, newHeight)
+    }
+    return img;
+}
+
+function clearBoardIfNeeded() {
+    if (board != null) {
+        for (let i = 0; i < board.fields.length; i++) {
+            board.fields[i].length = 0; // Clear each row
+        }
+        board.fields.length = 0; 
+        board.canvas = null;
+    }
+    const oldCanvas = document.getElementById("puzzleCanvas");
+    const newCanvas = oldCanvas.cloneNode(true); // clone with same attributes but NO event listeners
+
+    oldCanvas.parentNode.replaceChild(newCanvas, oldCanvas);
+    canvas = newCanvas;
+}
+
+function addRestartButton() {
+    var restartButton = document.createElement("button");
+    restartButton.textContent = "Restart";
+    restartButton.addEventListener("click", function () {
+        clearBoardIfNeeded();
+        let imgPromise = prepareImg()
+        imgPromise.then((img) => startGame(img, boardWidth, boardHeight));
+        
+    });
+    document.body.appendChild(restartButton);
+}
+
+function addStartButton() {
+    var startButton = document.createElement("button");
+    startButton.textContent = "Start";
+    startButton.addEventListener("click", function () {
+        let imgPromise = prepareImg()
+        imgPromise.then((img) => startGame(img, boardWidth, boardHeight));
+        
+    });
+    document.body.appendChild(startButton);
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
     canvas = document.getElementById("puzzleCanvas");
 
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
-
-    const board = new Board(boardWidth, boardHeight, canvas);
-
-    const gameImg = loadImage(defaultImgUrl);
-    gameImg.then((img) => board.initFields(img)).then(() => board.drawBoard()).catch((err) => {
-        console.error("Error loading image: ", err);
+    addUploadButton();
+    addRestartButton();
+    addStartButton();
+    // startGame(customImgUrl, boardWidth, boardHeight);
+    
+    generateSolvablePermutation(16);
+    var button = document.createElement("button");
+    button.textContent = "Log Permutation";
+    button.addEventListener("click", function () {
+        board.logPermutation();
     });
+    document.body.appendChild(button);
 
-    board.addHoverListener();
-    board.addClickListener();
+    
 });
+
