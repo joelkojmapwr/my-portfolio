@@ -34,15 +34,13 @@ function addUploadButton() {
     uploadButton.addEventListener("change", function (event) {
         const file = event.target.files[0];
         uploadButtonLabel.textContent = file.name;
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const img = new Image();
-                img.src = e.target.result;
-                customImg = img;
-            };
-            reader.readAsDataURL(file);
-        }
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const img = new Image();
+            img.src = e.target.result;
+            customImg = img;
+        };
+        reader.readAsDataURL(file);
     });
     document.body.appendChild(uploadButton);
 }
@@ -85,7 +83,7 @@ async function prepareImg() {
     let width = img.width;
     let height = img.height;
     let newHeight = width * boardHeight / boardWidth;
-    if (width / height != boardWidth / boardHeight){
+    if (width / height != boardWidth / boardHeight) {
         console.log("rescaling img")
         img = rescaleImage(img, width, newHeight)
     }
@@ -99,7 +97,7 @@ function clearBoardIfNeeded() {
         for (let i = 0; i < board.fields.length; i++) {
             board.fields[i].length = 0; // Clear each row
         }
-        board.fields.length = 0; 
+        board.fields.length = 0;
         board.canvas = null;
     }
     const oldCanvas = document.getElementById("puzzleCanvas");
@@ -110,15 +108,25 @@ function clearBoardIfNeeded() {
 }
 
 function addStartButton() {
-    var restartButton = document.createElement("button");
-    restartButton.textContent = "Start";
-    restartButton.addEventListener("click", function () {
+    const form = document.getElementById("gameOptions");
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        console.log("Form submitted");
+        const formData = new FormData(form);
+
+        const rows = formData.get("rows");
+        const columns = formData.get("columns");
+        boardWidth = columns;
+        boardHeight = rows;
+        const fileButton = document.getElementById("fileInput")
+
+        const keys = Array.from(formData.keys());
+        console.log(keys);
         clearBoardIfNeeded();
         let imgPromise = prepareImg()
         imgPromise.then((img) => startGame(img, boardWidth, boardHeight));
-        
     });
-    document.body.appendChild(restartButton);
+
 }
 
 
@@ -127,10 +135,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
-    addUploadButton();
     addStartButton();
+    addUploadButton();
     // startGame(customImgUrl, boardWidth, boardHeight);
-    
+
     generateSolvablePermutation(16);
     var button = document.createElement("button");
     button.textContent = "Log Permutation";
@@ -139,6 +147,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     document.body.appendChild(button);
 
-    
+
 });
 

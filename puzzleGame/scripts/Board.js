@@ -166,7 +166,9 @@ class Board {
                 this.fields[oldX][oldY] = null;
                 if (this.isWon()){
                     // print message you won
-                    alert("Congratulations!, you won")
+                    setTimeout(() => {
+                        alert("Congratulations! You won!");
+                    }, 100);
                 }
             }
         };
