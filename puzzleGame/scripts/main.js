@@ -136,6 +136,8 @@ function addStartButton() {
 function loadGameFromLocalStorage() {
     boardWidth = parseInt(localStorage.getItem("width"));
     boardHeight = parseInt(localStorage.getItem("height"));
+    canvas.width = parseInt(localStorage.getItem("canvasWidth"));
+    canvas.height = parseInt(localStorage.getItem("canvasHeight"));
     if (boardWidth < 2 || boardWidth > 7){
         console.warn("Invalid board width, Failed to load from LocalStorage, using default values");
         return;

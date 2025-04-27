@@ -87,7 +87,8 @@ class Board {
     saveToLocalStorage() {
         localStorage.setItem('width', this.width);
         localStorage.setItem('height', this.height);
-        // localStorage.setItem
+        localStorage.setItem('canvasWidth', this.canvas.width);
+        localStorage.setItem('canvasHeight', this.canvas.height);
         localStorage.setItem('fields', JSON.stringify(this.fieldsToSavable(this.fields)));
     }
 
