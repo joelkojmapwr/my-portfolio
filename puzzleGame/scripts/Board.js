@@ -8,6 +8,10 @@ class Board {
         this.height = height;
         this.fields = Array.from({ length: width }, () => Array(height).fill(null));
         this.emptyIndex = [0, 0];
+        this.pieceSize = canvas.width / width;
+        console.log("canvas size", canvas.width, canvas.height);
+        console.log("board size", width, height);
+        console.log("piece size", this.pieceSize);
         console.log(this.width, this.height);
     }
 
@@ -57,21 +61,57 @@ class Board {
         });
     }
 
+    fieldsToSavable(fields) {
+        const flatFields = [];
+        for (let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+            flatFields.push(this.fields[x][y]);
+        }
+        }
+        const serializedFields = [];
+        for (let i = 0; i < flatFields.length; i++) {
+            if (flatFields[i] === null) {
+                serializedFields.push(null);
+                continue;
+            }
+            serializedFields.push(flatFields[i] ? {
+            id: flatFields[i].id,
+            imgBase64: flatFields[i].img.src,
+            x: flatFields[i].x,
+            y: flatFields[i].y
+        } : null);
+        }
+        return serializedFields;
+    }
+
     saveToLocalStorage() {
         localStorage.setItem('width', this.width);
         localStorage.setItem('height', this.height);
-        function fieldsToSavable(fields) {
-            return fields.map(row => 
-                row.map(field => field ? ({
-                    id: field.id,
-                    imgBase64: field.img.src, // <-- convert img
-                    x: field.x,
-                    y: field.y
-                }) : null)
-            );
-        }
-        localStorage.setItem('fields', JSON.stringify(fieldsToSavable(this.fields)));
+        // localStorage.setItem
+        localStorage.setItem('fields', JSON.stringify(this.fieldsToSavable(this.fields)));
     }
+
+    loadFieldsFromLocalStorage() {
+        const fields = localStorage.getItem('fields');
+        if (fields) {
+            const parsedFields = JSON.parse(fields);
+
+            for (let i = 0; i < parsedFields.length; i++) {
+                if (parsedFields[i] === null) {
+                    this.fields[i%this.width][Math.floor(i/this.width)] = null;
+                    this.emptyIndex = [Math.floor(i%this.width), Math.floor(i/this.width)];
+                    continue;
+                }
+                const img = new Image();
+                img.src = parsedFields[i].imgBase64;
+                console.log("initing field ", i%this.width, "  ",i/this.width)
+                this.fields[i%this.width][Math.floor(i/this.width)] = new Field(parsedFields[i].id, img, parsedFields[i].x, parsedFields[i].y);
+                console.log(this.fields);
+            }
+        }
+        console.log("Empty index: ", this.emptyIndex);
+    }
+
 
     drawBoard() {
         this.canvas.style.backgroundColor = "blue";
@@ -96,7 +136,6 @@ class Board {
                 // console.log(piece.x, piece.y);
             }
         }
-        this.saveToLocalStorage();
     }
 
     isWon() {
@@ -188,6 +227,7 @@ class Board {
                         alert("Congratulations! You won!");
                     }, 100);
                 }
+                this.saveToLocalStorage();
             }
         };
 
@@ -318,6 +358,7 @@ class Board {
             const rect = this.canvas.getBoundingClientRect();
             const x = Math.floor((event.clientX - rect.left) / this.pieceSize);
             const y = Math.floor((event.clientY - rect.top) / this.pieceSize);
+            console.log(this.pieceSize ,"click")
             console.log("click", x, y);
             if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
                 if (this.fields[x][y] === null) {

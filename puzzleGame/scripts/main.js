@@ -8,7 +8,7 @@ import { generateSolvablePermutation } from "./utils.js";
 
 var boardWidth = 2
 var boardHeight = 2
-const defaultImgUrl = "ressources/pawel.jpg";
+const defaultImgUrl = "ressources/city.jpg";
 var customImg = "";
 var canvas;
 var baseWidth = 700;
@@ -133,6 +133,23 @@ function addStartButton() {
 
 }
 
+function loadGameFromLocalStorage() {
+    boardWidth = parseInt(localStorage.getItem("width"));
+    boardHeight = parseInt(localStorage.getItem("height"));
+    if (boardWidth < 2 || boardWidth > 7){
+        console.warn("Invalid board width, Failed to load from LocalStorage, using default values");
+        return;
+    }
+    console.log(boardWidth, boardHeight);
+    board = new Board(boardWidth, boardHeight, canvas);
+    board.loadFieldsFromLocalStorage();
+    board.addHoverListener();
+    board.addClickListener();
+    setTimeout(() => {
+        board.drawBoard();
+    }, 100);
+}
+
 
 document.addEventListener("DOMContentLoaded", function () {
     canvas = document.getElementById("puzzleCanvas");
@@ -147,11 +164,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
+    loadGameFromLocalStorage();
     addStartButton();
-    addUploadButton();
-    // startGame(customImgUrl, boardWidth, boardHeight);
-
-    generateSolvablePermutation(16);
+    addUploadButton(); 
     var button = document.getElementById("logPermutation");
     button.addEventListener("click", function () {
         board.logPermutation();

@@ -1,5 +1,6 @@
 class Field {
     constructor(id, img, x, y) {
+        console.log("Creating field with id: " + id + " img: " + img + " x: " + x + " y: " + y);
         this.id = id
         this.img = img
         this.x = x
