@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <main>
     <h1>15 puzzle Game</h1>
     <div id="gameContainer">
         <canvas id="puzzleCanvas"></canvas>
@@ -17,16 +18,22 @@
             <form id="gameOptions">
                 <label for="fileInput" id="fileLabel">Choose an image</label>
                 <input type="file" id="fileInput" hidden>
-                <label for="selectRows">Rows: </label>
+                
 
-                <select name="rows" id="selectRows"> Choose
-                    <option value="2">2</option>
-                    <option value="3" selected>3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                </select>
-                <label for="selectColumns">Columns:</label>
+                <div id="selectRows">
+                    <label for="selectRows">Rows: </label>
+                    <select name="rows" id="selectRows"> Choose
+                        <option value="2">2</option>
+                        <option value="3" selected>3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+            
+
+                <div id="selectColumns">
+                    <label for="selectColumns">Columns:</label>
                 <select name="columns" id="selectColumns">
                     <option value="2">2</option>
                     <option value="3" selected>3</option>
@@ -34,12 +41,15 @@
                     <option value="5">5</option>
                     <option value="6">6</option>
                 </select>
+                </div>
+                
                 <button id="startButton" type="submit">Start New Game</button>
+                <button id="logPermutation" type="button">Log Permutation</button>
             </form>
 
         </div>
     </div>
-
+    </main>
 
 </body>
 

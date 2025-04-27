@@ -8,13 +8,14 @@ import { generateSolvablePermutation } from "./utils.js";
 
 var boardWidth = 2
 var boardHeight = 2
-const defaultImgUrl = "ressources/city.jpg";
+const defaultImgUrl = "ressources/pawel.jpg";
 var customImg = "";
 var canvas;
 var baseWidth = 700;
 var baseHeight = 700;
 var canvasWidth = 700;
 var canvasHeight = 700;
+var maxWidth = 700;
 var board = null;
 
 function loadImage(fileName) {
@@ -82,6 +83,9 @@ async function prepareImg() {
     }
     let width = img.width;
     let height = img.height;
+    if (width > maxWidth) {
+        width = maxWidth
+    }
     let newHeight = width * boardHeight / boardWidth;
     if (width / height != boardWidth / boardHeight) {
         console.log("rescaling img")
@@ -132,6 +136,14 @@ function addStartButton() {
 
 document.addEventListener("DOMContentLoaded", function () {
     canvas = document.getElementById("puzzleCanvas");
+    if (window.innerWidth < maxWidth) {
+        maxWidth = window.innerWidth * 0.9;
+    }
+    
+    if (canvasWidth > maxWidth) {
+        canvasWidth = maxWidth;
+    }
+    canvasHeight = canvasWidth * boardHeight / boardWidth;
 
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
@@ -140,13 +152,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // startGame(customImgUrl, boardWidth, boardHeight);
 
     generateSolvablePermutation(16);
-    var button = document.createElement("button");
-    button.textContent = "Log Permutation";
+    var button = document.getElementById("logPermutation");
     button.addEventListener("click", function () {
         board.logPermutation();
     });
-    document.body.appendChild(button);
-
-
 });
 

@@ -4,7 +4,7 @@
 
 
 button, label {
-    background-color: #4CAF50;
+    background-color: #42a9d8;
     color: rgb(255, 255, 255);
     border: none;
     padding: 10px 20px;
@@ -19,8 +19,45 @@ button, label {
 
 canvas {
     background-color: aqua;
+    padding: 1rem;
 }
 
 #gameContainer {
     display: flex;
+    padding: 2rem;
+}
+
+#options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    /* padding: 1rem; */
+}
+
+#gameOptions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem; /* ⬅️ This adds space between all form elements automatically */
+}
+
+h1 {
+    color: #42a9d8;
+    text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+    #gameContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+    #options {
+        margin: 0;
+    }
+    canvas {
+
+    }
+    
 }

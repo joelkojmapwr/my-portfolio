@@ -23,9 +23,9 @@ class Board {
             const pieceWidth = gameImg.width / this.width;
             const pieceHeight = gameImg.height / this.height;
             this.pieceSize = pieceWidth;
-
-            for (let i = 0; i < this.width; i++) {
-                for (let j = 0; j < this.height; j++) {
+            console.log(this.width, this.height);
+            for (let i = 0; i < this.height; i++) {
+                for (let j = 0; j < this.width; j++) {
                     if (i === j && j === 0) {
                         // leave empty space
                         continue;
@@ -50,10 +50,27 @@ class Board {
                     const pieceImg = new Image();
                     pieceImg.src = pieceCanvas.toDataURL();
                     this.fields[j][i] = new Field(i * this.width + j, pieceImg, j, i);
+                    console.log("inited field", j, i);
                 }
             }
             resolve();
         });
+    }
+
+    saveToLocalStorage() {
+        localStorage.setItem('width', this.width);
+        localStorage.setItem('height', this.height);
+        function fieldsToSavable(fields) {
+            return fields.map(row => 
+                row.map(field => field ? ({
+                    id: field.id,
+                    imgBase64: field.img.src, // <-- convert img
+                    x: field.x,
+                    y: field.y
+                }) : null)
+            );
+        }
+        localStorage.setItem('fields', JSON.stringify(fieldsToSavable(this.fields)));
     }
 
     drawBoard() {
@@ -79,6 +96,7 @@ class Board {
                 // console.log(piece.x, piece.y);
             }
         }
+        this.saveToLocalStorage();
     }
 
     isWon() {
